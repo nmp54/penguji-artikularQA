@@ -15,6 +15,21 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+Cypress.Commands.add('loginViaAPI', () => {
+    cy.request({
+        method: 'POST',
+        url: 'https://arti.api.artikularklinik.com/api/user/v1/login', // Ganti dengan endpoint API login Anda
+        body: {
+            username: 'mulyaputri_',
+            password: 'Nmpmcm54',
+        },
+    }).then((response) => {
+        expect(response.status).to.eq(200);
+        window.localStorage.setItem('token', response.body.token);
+        expect(response.body.name).to.eq('Nur');
+    });
+});
+
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
